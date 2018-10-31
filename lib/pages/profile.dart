@@ -59,9 +59,13 @@ class _ProfilePage extends State<ProfilePage> {
                 flexibleSpace: FlexibleSpaceBar(
                   centerTitle: true,
                   title: Text('Nombre', style: TextStyle(color: Colors.white),),
-                  background: Container(
-                    color: Color(0xffff6600),
-                    child: Icon(Icons.account_circle),
+                  background: Center(
+//                    color: Color(0xffff6600),
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage('https://scontent.flim5-4.fna.fbcdn.net/v/t1.0-9/527953_134954853303057_1564908610_n.jpg?_nc_cat=109&_nc_ht=scontent.flim5-4.fna&oh=dee193bc443408e593e930e3ba248f21&oe=5C4C7E6C',),
+                      maxRadius: 40.0,
+                      backgroundColor: Colors.brown,
+                    ),
                   ),
                 ),
               )
