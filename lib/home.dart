@@ -29,6 +29,8 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin, Mai
 
   MainPresenter _presenter;
 
+  var _children;
+
   _HomePage() {
     _presenter = new MainPresenter(this);
   }
@@ -50,6 +52,13 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin, Mai
   void initState() {
 
     super.initState();
+
+    _children = <Widget>[
+      MainPage(scrollController: _scrollController,),
+      null,
+      null,
+      ProfilePage()
+    ];
 
     _presenter.loadUser();
 
@@ -98,53 +107,44 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin, Mai
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xffff6600),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.access_time),
-            onPressed: () {
-              
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.account_circle),
-            onPressed: () {
-              Navigator.of(context).pushNamed(ProfilePage.tag);
-            },
-          )
-        ],
-      ),
-      body: MainPage(scrollController: _scrollController,),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            new ListTile(
-              title: Text("Home"),
-              trailing: new Icon(Icons.home),
-              onTap: () {
-                print("HOMA");
-              },
-            )
-          ],
-        ),
-      ),
+//      appBar: AppBar(
+//        elevation: 0.0,
+//        backgroundColor: Color(0xffff6600),
+//        actions: <Widget>[
+//          IconButton(
+//            icon: Icon(Icons.access_time),
+//            onPressed: () {
+//
+//            },
+//          ),
+//          IconButton(
+//            icon: Icon(Icons.account_circle),
+//            onPressed: () {
+//              Navigator.of(context).pushNamed(ProfilePage.tag);
+//            },
+//          )
+//        ],
+//      ),
+      body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(items: [
         BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
-        BottomNavigationBarItem(icon: Icon(Icons.category), title: Text("Home")),
-        BottomNavigationBarItem(icon: Icon(Icons.verified_user), title: Text("Home")),
+        BottomNavigationBarItem(icon: Icon(Icons.search), title: Text("Buscar")),
+        BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), title: Text("Compras")),
         BottomNavigationBarItem(icon: Icon(Icons.account_circle), title: Text("Perfil")),
       ], currentIndex: _currentIndex, onTap: (index) {
         setState(() {
-          _currentIndex = index;
+          if (_children[index] != null) {
+            _currentIndex = index;
+          }
         });
       },type: BottomNavigationBarType.fixed,),
-      floatingActionButton: Opacity(
-        opacity: floatingAnimation.value,
-        child: FloatingActionButton(onPressed: () {
-
-        }, ),
-      ),
+//      floatingActionButton: Opacity(
+//        opacity: floatingAnimation.value,
+//        child: FloatingActionButton(onPressed: () {
+//
+//        }, backgroundColor: Color(0xffff6600),
+//        child: Icon(Icons.shopping_cart),),
+//      ),
     );
   }
 
